@@ -46,7 +46,8 @@ export function errorHandler(
   // Unknown errors — log but don't expose internals
   console.error("[unhandled error]", err);
   return res.status(500).json({
-    error: "An unexpected error occurred",
+    error: err.message || "An unexpected error occurred",
     code: "INTERNAL_ERROR",
+    details: err instanceof Error ? err.stack : undefined,
   });
 }
