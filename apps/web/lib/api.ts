@@ -16,7 +16,6 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    console.log(body);
     throw new ApiError(
       res.status,
       body.error ?? "Request failed",
