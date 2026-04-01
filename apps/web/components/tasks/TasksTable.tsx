@@ -50,7 +50,6 @@ export function TasksTable({
         <col style={{ width: 100 }} />
         <col style={{ width: 60 }} />
         <col style={{ width: 70 }} />
-        <col style={{ width: 70 }} />
         <col style={{ width: 90 }} />
         <col style={{ width: 32 }} />
       </colgroup>
@@ -82,7 +81,7 @@ function TableGroup({ status, tasks }: { status: Status; tasks: Task[] }) {
       {/* Group header */}
       <thead>
         <tr>
-          <td colSpan={9} style={{ padding: 0 }}>
+          <td colSpan={8} style={{ padding: 0 }}>
             <div
               style={{
                 display: "flex",
@@ -136,7 +135,7 @@ function TableGroup({ status, tasks }: { status: Status; tasks: Task[] }) {
         {tasks.length === 0 ? (
           <tr>
             <td
-              colSpan={9}
+              colSpan={8}
               style={{ padding: "20px", textAlign: "center", color: "var(--text-tertiary)", fontSize: 12 }}
             >
               No {STATUS_LABELS[status].toLowerCase()} tasks

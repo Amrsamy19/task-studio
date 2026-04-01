@@ -1,12 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 export default function TasksError({
   error,
   reset,
 }: {
-  error: Error;
+  error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
   return (
     <div
       style={{
@@ -17,6 +26,7 @@ export default function TasksError({
         height: "100%",
         gap: 16,
         padding: 40,
+        background: "var(--bg)",
       }}
     >
       <div
@@ -37,17 +47,21 @@ export default function TasksError({
         </svg>
       </div>
       <div>
-        <p style={{ fontWeight: 500, textAlign: "center", marginBottom: 4 }}>
+        <p style={{ fontWeight: 600, textAlign: "center", marginBottom: 6, fontSize: 16, color: "var(--text-primary)" }}>
           Failed to load tasks
         </p>
-        <p style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "center" }}>
-          {error.message}
+        <p style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "center", maxWidth: 400, lineHeight: 1.5 }}>
+          {error.message || "An unexpected error occurred while fetching the tasks."}
         </p>
       </div>
       <button
-        onClick={reset}
+        onClick={() => {
+          reset();
+          router.refresh();
+        }}
         style={{
-          padding: "7px 16px",
+          marginTop: 8,
+          padding: "8px 20px",
           background: "var(--accent)",
           color: "#fff",
           border: "none",
@@ -55,7 +69,10 @@ export default function TasksError({
           cursor: "pointer",
           fontSize: 13,
           fontWeight: 500,
+          transition: "opacity 0.2s",
         }}
+        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
+        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
       >
         Try again
       </button>
