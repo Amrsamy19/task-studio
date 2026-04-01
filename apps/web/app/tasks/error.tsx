@@ -23,51 +23,53 @@ export default function TasksError({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100%",
-        gap: 16,
+        minHeight: "calc(100vh - 120px)",
+        gap: 24,
         padding: 40,
-        background: "var(--bg)",
+        background: "#ffffff",
       }}
     >
-      <div
-        style={{
-          width: 48,
-          height: 48,
-          borderRadius: "50%",
-          background: "var(--status-blocked-bg)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="var(--status-blocked-text)" strokeWidth="1.5">
-          <circle cx="11" cy="11" r="9"/>
-          <line x1="11" y1="7" x2="11" y2="12"/>
-          <circle cx="11" cy="15" r="0.5" fill="currentColor"/>
-        </svg>
-      </div>
-      <div>
-        <p style={{ fontWeight: 600, textAlign: "center", marginBottom: 6, fontSize: 16, color: "var(--text-primary)" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div
+          style={{
+            width: 42,
+            height: 42,
+            borderRadius: "50%",
+            background: "#fee2e2",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#dc2626" strokeWidth="2.2">
+            <circle cx="11" cy="11" r="9"/>
+            <line x1="11" y1="7" x2="11" y2="12"/>
+            <circle cx="11" cy="15" r="0.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <h1 style={{ fontWeight: 600, fontSize: 22, color: "#111827", margin: 0 }}>
           Failed to load tasks
-        </p>
-        <p style={{ fontSize: 13, color: "var(--text-secondary)", textAlign: "center", maxWidth: 400, lineHeight: 1.5 }}>
-          {error.message || "An unexpected error occurred while fetching the tasks."}
-        </p>
+        </h1>
       </div>
+
+      <p style={{ fontSize: 14, color: "#6b7280", textAlign: "center", maxWidth: 450, lineHeight: 1.6, margin: "-8px 0 8px" }}>
+        {error.message || "An unexpected error occurred while fetching the tasks. This is often temporary—please try again."}
+      </p>
+
       <button
         onClick={() => {
           reset();
           router.refresh();
         }}
         style={{
-          marginTop: 8,
-          padding: "8px 20px",
-          background: "var(--accent)",
+          padding: "10px 24px",
+          background: "#7c3aed",
           color: "#fff",
           border: "none",
-          borderRadius: "var(--radius-md)",
+          borderRadius: "8px",
           cursor: "pointer",
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 500,
           transition: "opacity 0.2s",
         }}
