@@ -8,8 +8,12 @@ import {
 
 const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
 
-if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_API_URL) {
-  console.error("❌ CRITICAL: NEXT_PUBLIC_API_URL is missing in the production environment!");
+if (process.env.NODE_ENV === "production") {
+  console.log("🌐 INITIALIZING API_BASE:", {
+    API_URL_SET: !!process.env.NEXT_PUBLIC_API_URL,
+    FALLBACK_IN_USE: API_BASE.includes("localhost"),
+    API_BASE_VALUE: API_BASE.replace(/https?:\/\//, ""), // Log enough to verify but hide protocol
+  });
 }
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
