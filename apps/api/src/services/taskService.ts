@@ -23,7 +23,7 @@ export async function getTasks(query: TaskQuery) {
     sortOrder,
   } = query;
 
-  const where: Prisma.TaskWhereInput = {
+  const where = {
     archived,
     ...(status && { status }),
     ...(priority && { priority }),
@@ -59,7 +59,7 @@ export async function getTasks(query: TaskQuery) {
 
   if (isPrioritySort) {
     result = tasks
-      .sort((a, b) => {
+      .sort((a: any, b: any) => {
         const diff =
           PRIORITY_ORDER[b.priority] - PRIORITY_ORDER[a.priority];
         return sortOrder === "asc" ? -diff : diff;
