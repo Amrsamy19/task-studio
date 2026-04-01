@@ -6,6 +6,10 @@ import { z } from "zod";
 
 const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
 
+if (process.env.NODE_ENV === "production" && !process.env.NEXT_PUBLIC_API_URL) {
+  console.error("❌ CRITICAL: NEXT_PUBLIC_API_URL is missing in the production environment!");
+}
+
 const createTaskSchema = z.object({
   title: z.string().min(1, "Title is required").max(200),
   description: z.string().max(5000).optional(),
