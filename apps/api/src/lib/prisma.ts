@@ -12,7 +12,7 @@ export const prisma =
   new PrismaClient({
     datasources: {
       db: {
-        url: process.env.DATABASE_URL || `file:${path.join(process.cwd(), "prisma/dev.db")}`,
+        url: process.env.DATABASE_URL || `file:${path.join(__dirname, "../../prisma/dev.db")}`,
       },
     },
     log:
