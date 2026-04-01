@@ -1,6 +1,12 @@
-import { Task, TaskDetail, PaginatedResponse, User, TaskFilters } from "@/types";
+import {
+  Task,
+  TaskDetail,
+  PaginatedResponse,
+  User,
+  TaskFilters,
+} from "@/types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
@@ -10,7 +16,13 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new ApiError(res.status, body.error ?? "Request failed", body.code, body.issues);
+    console.log(body);
+    throw new ApiError(
+      res.status,
+      body.error ?? "Request failed",
+      body.code,
+      body.issues,
+    );
   }
 
   return res.json();
@@ -21,7 +33,7 @@ export class ApiError extends Error {
     public status: number,
     message: string,
     public code?: string,
-    public issues?: Array<{ field: string; message: string }>
+    public issues?: Array<{ field: string; message: string }>,
   ) {
     super(message);
     this.name = "ApiError";
