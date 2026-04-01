@@ -8,7 +8,7 @@ import {
 import { AppError } from "../middleware/errorHandler";
 
 // Priority ordering for sort
-const PRIORITY_ORDER = { URGENT: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
+const PRIORITY_ORDER: Record<string, number> = { URGENT: 4, HIGH: 3, MEDIUM: 2, LOW: 1 };
 
 export async function getTasks(query: TaskQuery) {
   const {

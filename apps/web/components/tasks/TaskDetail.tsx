@@ -19,7 +19,9 @@ export function TaskDetail({
 
   function handleArchive() {
     if (!confirm("Archive this task?")) return;
-    startTransition(() => archiveTaskAction(task.id));
+    startTransition(async () => {
+      await archiveTaskAction(task.id);
+    });
   }
 
   // Mix comments + system events into one sorted timeline
