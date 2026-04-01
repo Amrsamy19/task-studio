@@ -7,6 +7,8 @@ export function formatDueDate(date: string | null | undefined): {
   if (!date) return { label: "—", color: "var(--text-tertiary)" };
 
   const d = new Date(date);
+  if (isNaN(d.getTime())) return { label: "—", color: "var(--text-tertiary)" }; // Safeguard against "Invalid Date"
+
   if (isPast(d) && !isToday(d)) {
     return {
       label: format(d, "MMM d"),
@@ -22,15 +24,23 @@ export function formatDueDate(date: string | null | undefined): {
   return { label: format(d, "MMM d"), color: "var(--text-secondary)" };
 }
 
-export function formatRelative(date: string) {
-  return formatDistanceToNow(new Date(date), { addSuffix: true });
+export function formatRelative(date: string | null | undefined) {
+  if (!date) return "";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "";
+  return formatDistanceToNow(d, { addSuffix: true });
 }
 
-export function formatFull(date: string) {
-  return format(new Date(date), "MMM d, yyyy");
+export function formatFull(date: string | null | undefined) {
+  if (!date) return "";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "";
+  return format(d, "MMM d, yyyy");
 }
 
 export function formatDateInput(date: string | null | undefined) {
   if (!date) return "";
-  return format(new Date(date), "yyyy-MM-dd");
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "";
+  return format(d, "yyyy-MM-dd");
 }
