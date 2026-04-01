@@ -2,6 +2,10 @@ import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
+if (!process.env.DATABASE_URL) {
+  console.warn("⚠️ DATABASE_URL is not defined in process.env!");
+}
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
